@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Patient's Signup Form</title>
+    <style>
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+        background-color: #f1f1f1;
+      }
+
+      .container {
+        background-color: #ffffff;
+        padding: 20px;
+        margin: 50px auto;
+        max-width: 600px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+
+      h2 {
+        text-align: center;
+        color: #333333;
+      }
+
+      input[type="text"],
+      input[type="password"],
+      input[type="date"],
+      select {
+        width: 100%;
+        padding: 12px;
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+      }
+
+      button {
+        background-color: #04aa6d;
+        color: white;
+        padding: 14px 20px;
+        margin: 8px 0;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        width: 100%;
+      }
+
+      button:hover {
+        background-color: #45a049;
+      }
+
+      .clearfix::after {
+        content: "";
+        clear: both;
+        display: table;
+      }
+
+      @media screen and (max-width: 600px) {
+        .container {
+          width: 90%;
+        }
+
+        input[type="text"],
+        input[type="password"],
+        input[type="date"],
+        select {
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <h2>Patient's Signup Form</h2>
+      <form id="signupForm">
+        <label for="fname">First Name</label>
+        <input type="text" id="fname" name="fname" required />
+
+        <label for="lname">Last Name</label>
+        <input type="text" id="lname" name="lname" required />
+
+        <label for="specia">Specialization</label>
+        <input type="text" id="specia" name="specia" required />
+
+        <label for="telephone">Contact Number</label>
+        <input type="text" id="telephone" name="telephone" required />
+
+        <label for="email">Email</label>
+        <input
+          type="text"
+          placeholder="Enter Email"
+          id="email"
+          name="email"
+          onblur="validateEmail()"
+          required
+        />
+        <span id="emailAlert" style="color: red"></span>
+
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" required />
+
+        <label for="psw">Password</label>
+        <input
+          type="password"
+          placeholder="Enter Password"
+          id="psw"
+          name="psw"
+          oninput="checkPassword()"
+          required
+        />
+        <span id="passwordAlert" style="color: red"></span>
+
+        <label for="psw-repeat">Repeat Password</label>
+        <input
+          type="password"
+          placeholder="Repeat Password"
+          id="psw-repeat"
+          name="psw-repeat"
+          oninput="checkPassword()"
+          required
+        />
+
+        <button type="submit" id="signupBtn" disabled>Sign Up</button>
+        <div id="responseMessage"></div>
+      </form>
+    </div>
+
+    <script>
+      function validateEmail() {
+        const email = document.getElementById("email").value;
+        const emailAlert = document.getElementById("emailAlert");
+        const isValidEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        if (!isValidEmail) {
+          emailAlert.innerText = "Invalid email format";
+          document.getElementById("signupBtn").disabled = true;
+        } else {
+          emailAlert.innerText = "";
+          document.getElementById("signupBtn").disabled = false;
+        }
+      }
+
+      function checkPassword() {
+        const password = document.getElementById("psw").value;
+        const confirmPassword = document.getElementById("psw-repeat").value;
+        const passwordAlert = document.getElementById("passwordAlert");
+        if (password !== confirmPassword) {
+          passwordAlert.innerText = "Passwords do not match";
+          document.getElementById("signupBtn").disabled = true;
+        } else {
+          passwordAlert.innerText = "";
+          document.getElementById("signupBtn").disabled = false;
+        }
+      }
+
+      document.addEventListener("DOMContentLoaded", function () {
+        const form = document.getElementById("signupForm");
+        const responseMessage = document.getElementById("responseMessage");
+
+        form.addEventListener("submit", function (event) {
+          event.preventDefault();
+          const formData = new FormData(form);
+          
+          fetch("create_action.php", {
+            method: "POST",
+            body: formData,
+          })
+            .then((response) => response.json())
+            .then((data) => {
+             
+              if (data.error) {
+                responseMessage.innerHTML =
+                  "<span style='color: red;'>" + data.error + "</span>";
+              } else if (data.success) {
+                responseMessage.innerHTML =
+                  "<span style='color: green;'>" + data.success + "</span>";
+                  window.location.href = "../address/index.php";
+                
+              }
+            })
+            .catch((error) => {
+              responseMessage.innerHTML =
+                "<span style='color: red;'>Error: " + error.message + "</span>";
+            });
+        });
+
+        
+        form.addEventListener("input", function () {
+          document.getElementById("signupBtn").disabled = !form.checkValidity();
+        });
+      });
+    </script>
+  </body>
+</html>
