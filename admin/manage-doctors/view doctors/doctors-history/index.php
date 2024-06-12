@@ -203,6 +203,11 @@ th, td {
 
     <div class="body-container">
     <div class="table-container">
+    <div class="table-header">
+              <button class="btn add-Doctor" onclick="addDoctorPayment()">
+                Doctor Payments
+              </button>
+            </div>
             <table>
               <thead>
                 <tr>
@@ -238,6 +243,11 @@ th, td {
         </div>
     </div>
     </div>
+    <script>
+          function addDoctorPayment() {
+            window.location.href = "./doctor-payments/index.php";
+          }
+    </script>
   </body>
 
   <!-- jQery -->

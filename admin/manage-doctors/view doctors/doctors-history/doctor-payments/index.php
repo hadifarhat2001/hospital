@@ -1,7 +1,7 @@
 <?php
 
-require_once "./getPastLabTest.php";
-require_once "./getUpcomingLabTest.php";
+require_once "./getPastPayments.php";
+require_once "./getUpcomingPayment.php";
 ?>
 <!DOCTYPE html>
 <html>
@@ -15,7 +15,7 @@ require_once "./getUpcomingLabTest.php";
 
     <title>Hospital project</title>
 
-    <link rel="stylesheet" type="text/css" href="../../../../css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../../css/bootstrap.css" />
 
 
     <link
@@ -29,7 +29,7 @@ require_once "./getUpcomingLabTest.php";
       href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css"
     />
 
-    <link href="../../../../css/font-awesome.min.css" rel="stylesheet" />
+    <link href="../../../../../css/font-awesome.min.css" rel="stylesheet" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/css/nice-select.min.css"
@@ -40,8 +40,8 @@ require_once "./getUpcomingLabTest.php";
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.css"
     />
-    <link href="../../../../css/style.css" rel="stylesheet" />
-    <link href="../../../../css/responsive.css" rel="stylesheet" />
+    <link href="../../../../../css/style.css" rel="stylesheet" />
+    <link href="../../../../../css/responsive.css" rel="stylesheet" />
     
     <style>
      
@@ -81,7 +81,7 @@ require_once "./getUpcomingLabTest.php";
   cursor: pointer;
 }
 
-.add-LabTest{
+.add-payment{
     background-color: #04aa6d;
     color: white;
     padding: 14px 20px;
@@ -201,10 +201,11 @@ th, td {
                 </ul>
               </div>
               <div class="quote_btn-container">
-              <a href="../../../logout/index.php">
+              <a href="../../../../logout/logout.php">
                                 <i class="fa fa-user" aria-hidden="true"></i>
                                 <span>log out</span>
                             </a>
+
               </div>
             </div>
           </nav>
@@ -215,33 +216,40 @@ th, td {
     <div class="body-container">
     <div class="table-container"> 
     <div class="table-header">
+              <button class="btn add-payment" onclick="openAddpaymentModal()">
+                Add New payment
+              </button>
             </div>
             <table>
               <thead>
                 <tr>
                   <th>ID</th>
-                  <th>Test Name</th>
-                  <th>Test Date</th>
-                  <th>Result</th>
+                  <th>Total Amount</th>
+                  <th>Billing Date</th>
+                  <th>Actions</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                <?php foreach ($upcomingLabTest as $row): ?>
+                <?php foreach ($upcomingPayments as $row): ?>
                 <tr style="background: #FFEB3B;">
-                    <td><?php echo $row['TestID']; ?></td>
-                    <td><?php echo $row['TestName'];?></td>
-                    <td><?php echo $row['TestDate']; ?></td>
-                    <td><?php echo $row['Result']; ?></td>
+                    <td><?php echo $row['paymentID']; ?></td>
+                    <td><?php echo $row['amount'];?></td>
+                    <td><?php echo $row['date']; ?></td>
+                   <td>
+                   <button class="btn delete-btn" onclick="markASPaid(<?php echo $row['paymentID']; ?>)">
+                      Pay
+                    </button>
+                    </td> 
                 </tr>
               <?php endforeach; ?>
 
-              <?php foreach ($pastLabTest as $row): ?>
+              <?php foreach ($pastPayments as $row): ?>
                 <tr style="background: #c0bfbf;">
-                    <td><?php echo $row['TestID']; ?></td>
-                    <td><?php echo $row['TestName']; ?></td>
-                    <td><?php echo $row['TestDate']; ?></td>
-                    <td><?php echo $row['Result']; ?></td>
+                    <td><?php echo $row['paymentID']; ?></td>
+                    <td><?php echo $row['amount']; ?></td>
+                    <td><?php echo $row['date']; ?></td>
+                    <td></td>
                 </tr>
               <?php endforeach; ?>
                   
@@ -252,6 +260,79 @@ th, td {
     </div>
     </div>
 
+     <!-- Modal for adding payment -->
+     <div id="addpaymentModal" class="modal">
+          <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>Add New payment</h2>
+            <form id="addpaymentForm">
+
+              <!-- Other form fields here -->
+              <label for="TotalAmount">TotalAmount:</label>
+              <input type="text" id="TotalAmount" name="TotalAmount" required>
+
+              <!-- Other form fields here -->
+              <label for="BillingDate">Billing Date</label>
+              <input type="datetime-local" id="BillingDate" name="BillingDate" required>
+              
+              <button type="submit">Submit</button>
+            </form>
+          </div>
+        </div>
+
+    <script>
+
+        function markASPaid(paymentID) {
+            fetch("./change_to_paid.php?paymentID=" + paymentID, {
+              method: "GET"
+            })
+            .then((response) => response.json())
+            .then((data) => {
+              if (data.error) {
+                alert(data.error);
+              } else if (data.success) {
+                alert(data.success);
+                closeModal(); 
+                location.reload();
+              }
+            })
+            .catch((error) => {
+              alert("Error: " + error.message);
+            });
+        }
+
+        function openAddpaymentModal() {
+            var modal = document.getElementById("addpaymentModal");
+            modal.style.display = "block";
+          }
+
+          function closeModal() {
+            var modal = document.getElementById("addpaymentModal");
+            modal.style.display = "none";
+          }
+
+          document.getElementById("addpaymentForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            var formData = new FormData(this); 
+            fetch("./add_payment.php", {
+              method: "POST",
+              body: formData
+            })
+            .then((response) => response.json())
+            .then((data) => {
+              if (data.error) {
+                alert(data.error);
+              } else if (data.success) {
+                alert(data.success);
+                closeModal(); 
+                location.reload();
+              }
+            })
+            .catch((error) => {
+              alert("Error: " + error.message);
+            });
+          });
+    </script>
   </body>
 
   <!-- jQery -->

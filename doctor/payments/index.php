@@ -1,7 +1,9 @@
 <?php
 
-require_once "./getPastLabTest.php";
-require_once "./getUpcomingLabTest.php";
+require_once "./getPastPayments.php";
+require_once "./getUpcomingPayment.php";
+$pastTotal = array_sum(array_column($pastPayments, 'amount'));
+$upcomingTotal = array_sum(array_column($upcomingPayments, 'amount'));
 ?>
 <!DOCTYPE html>
 <html>
@@ -15,7 +17,7 @@ require_once "./getUpcomingLabTest.php";
 
     <title>Hospital project</title>
 
-    <link rel="stylesheet" type="text/css" href="../../../../css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/bootstrap.css" />
 
 
     <link
@@ -29,7 +31,7 @@ require_once "./getUpcomingLabTest.php";
       href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css"
     />
 
-    <link href="../../../../css/font-awesome.min.css" rel="stylesheet" />
+    <link href="../../css/font-awesome.min.css" rel="stylesheet" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/css/nice-select.min.css"
@@ -40,8 +42,8 @@ require_once "./getUpcomingLabTest.php";
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.css"
     />
-    <link href="../../../../css/style.css" rel="stylesheet" />
-    <link href="../../../../css/responsive.css" rel="stylesheet" />
+    <link href="../../css/style.css" rel="stylesheet" />
+    <link href="../../css/responsive.css" rel="stylesheet" />
     
     <style>
      
@@ -81,7 +83,7 @@ require_once "./getUpcomingLabTest.php";
   cursor: pointer;
 }
 
-.add-LabTest{
+.add-payment{
     background-color: #04aa6d;
     color: white;
     padding: 14px 20px;
@@ -201,10 +203,11 @@ th, td {
                 </ul>
               </div>
               <div class="quote_btn-container">
-              <a href="../../../logout/index.php">
+              <a href="../logout/logout.php">
                                 <i class="fa fa-user" aria-hidden="true"></i>
                                 <span>log out</span>
                             </a>
+
               </div>
             </div>
           </nav>
@@ -214,37 +217,40 @@ th, td {
 
     <div class="body-container">
     <div class="table-container"> 
-    <div class="table-header">
-            </div>
             <table>
               <thead>
                 <tr>
                   <th>ID</th>
-                  <th>Test Name</th>
-                  <th>Test Date</th>
-                  <th>Result</th>
+                  <th>Total Amount</th>
+                  <th>Billing Date</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                <?php foreach ($upcomingLabTest as $row): ?>
+                <?php foreach ($upcomingPayments as $row): ?>
                 <tr style="background: #FFEB3B;">
-                    <td><?php echo $row['TestID']; ?></td>
-                    <td><?php echo $row['TestName'];?></td>
-                    <td><?php echo $row['TestDate']; ?></td>
-                    <td><?php echo $row['Result']; ?></td>
+                    <td><?php echo $row['paymentID']; ?></td>
+                    <td><?php echo $row['amount'];?></td>
+                    <td><?php echo $row['date']; ?></td>
                 </tr>
               <?php endforeach; ?>
 
-              <?php foreach ($pastLabTest as $row): ?>
+              <?php foreach ($pastPayments as $row): ?>
                 <tr style="background: #c0bfbf;">
-                    <td><?php echo $row['TestID']; ?></td>
-                    <td><?php echo $row['TestName']; ?></td>
-                    <td><?php echo $row['TestDate']; ?></td>
-                    <td><?php echo $row['Result']; ?></td>
+                    <td><?php echo $row['paymentID']; ?></td>
+                    <td><?php echo $row['amount']; ?></td>
+                    <td><?php echo $row['date']; ?></td>
                 </tr>
               <?php endforeach; ?>
-                  
+                  <!-- Display totals -->
+            <tr style="background: #FFEB3B;">
+              <td colspan="2"><strong>Upcoming Payments Total</strong></td>
+              <td><strong><?php echo $upcomingTotal; ?></strong></td>
+            </tr>
+            <tr style="background: #c0bfbf;">
+              <td colspan="2"><strong>Past Payments Total</strong></td>
+              <td><strong><?php echo $pastTotal; ?></strong></td>
+            </tr>
                 </tr>
               </tbody>
             </table>
