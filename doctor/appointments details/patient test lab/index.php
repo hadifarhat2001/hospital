@@ -201,7 +201,7 @@ th, td {
                 </ul>
               </div>
               <div class="quote_btn-container">
-              <a href="../logout/logout.php">
+              <a href="../../logout/logout.php">
                                 <i class="fa fa-user" aria-hidden="true"></i>
                                 <span>log out</span>
                             </a>
@@ -259,15 +259,15 @@ th, td {
      <div id="addLabTestModal" class="modal">
           <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
-            <h2>Add New LabTest</h2>
+            <h2>Add New Lab Test</h2>
             <form id="addLabTestForm">
 
               <!-- Other form fields here -->
-              <label for="TestName">LabTest Date & Time:</label>
+              <label for="TestName">Lab Test Name:</label>
               <input type="text" id="TestName" name="TestName" required>
 
               <!-- Other form fields here -->
-              <label for="TestDate">LabTest Date & Time:</label>
+              <label for="TestDate">Lab Test Date & Time:</label>
               <input type="datetime-local" id="TestDate" name="TestDate" required>
               
               <button type="submit">Submit</button>
