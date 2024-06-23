@@ -185,7 +185,7 @@ th, td {
                 </ul>
               </div>
               <div class="quote_btn-container">
-              <a href="../logout/logout.php">
+              <a href="../../logout/logout.php">
                                 <i class="fa fa-user" aria-hidden="true"></i>
                                 <span>log out</span>
                             </a>

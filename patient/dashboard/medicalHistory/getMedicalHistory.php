@@ -18,8 +18,8 @@ $patient = $result->fetch_assoc();
 if (!$patient) {
     echo "Invalid credentials or user not found.";
     exit();
-}                      // MedicineTypeName	 => medicinetypes
-// MedicineHistoryID , MedicineTypeID , Dosage, PrescriptionDate  => medicinehistory
+}                      
+
 $sql = "SELECT a.MedicineHistoryID, d.MedicineTypeName, a.Dosage, a.PrescriptionDate
         FROM medicinehistory a
         INNER JOIN medicinetypes d ON a.MedicineTypeID = d.MedicineTypeID 

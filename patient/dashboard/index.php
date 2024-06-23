@@ -262,8 +262,8 @@ require_once "./appoitmnets/addApointment.php/view_schedule.php";
             </select>
 
             <!-- Dropdown for selecting room -->
-            <label for="room" hidden>Room:</label>
-            <select id="room" name="room" required hidden>
+            <label for="room">Room:</label>
+            <select id="room" name="room" required >
               <option value="">Select Room</option>
               <?php foreach ($roomsList as $room): ?>
                 <option value="<?php echo $room['RoomID']; ?>"><?php echo $room['RoomNumber']; ?></option>
