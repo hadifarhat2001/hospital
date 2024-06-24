@@ -178,14 +178,14 @@ if (!isset($_SESSION['PatientID'])) {
                     <a href="./patient history/index.php" class="card mb-3">Patient History</a>
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-12 ">
-                    <a href="./patient medical history/index.php" class="card mb-3">Patient Medical History</a>
-                </div>
-                <div class="col-lg-6 col-md-6 col-sm-12 flex-left">
                     <a href="./patient test lab/index.php" class="card mb-3">Patient Lab tests</a>
                 </div>
-                <div class="col-lg-6 col-md-6 col-sm-12">
+                <div class="col-lg-6 col-md-6 col-sm-12 flex-left">
                     <a href="./prespection/index.php" class="card mb-3">Patient Prespection</a>
                 </div>
+                <!-- <div class="col-lg-6 col-md-6 col-sm-12">
+                    <a href="./patient medical history/index.php" class="card mb-3">Patient Medical History</a>
+                </div> -->
             </div>
         </div>
     </div>

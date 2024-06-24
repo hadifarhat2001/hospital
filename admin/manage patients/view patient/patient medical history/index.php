@@ -202,7 +202,8 @@ th, td {
               <thead>
                 <tr>
                   <th>ID</th>
-                  <th>Medicine Type Name</th>
+                  <th>Doctor Name</th>
+                  <th>Medication Name</th>
                   <th>Dosage</th>
                   <th>Prescription Date</th>
                 </tr>
@@ -211,8 +212,9 @@ th, td {
                 <tr>
                 <?php foreach ($medicalHistory as $row): ?>
                 <tr >
-                    <td><?php echo $row['MedicineHistoryID']; ?></td>
-                    <td><?php echo $row['MedicineTypeName'];?></td>
+                    <td><?php echo $row['PrescriptionID']; ?></td>
+                    <td><?php echo $row['DoctorName'];?></td>
+                    <td><?php echo $row['Medication']; ?></td>
                     <td><?php echo $row['Dosage']; ?></td>
                     <td><?php echo $row['PrescriptionDate']; ?></td>
                 </tr>

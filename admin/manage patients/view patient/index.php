@@ -190,16 +190,16 @@ if(!isset($_SESSION['PatientID']) ) {
         <div class="container">
             <div class="row">
                 <div class="col-lg-6 col-md-6 col-sm-12 flex-left">
-                    <a href="./appoitmnets/index.php" class="card mb-3">Manage Appointments</a>
+                    <a href="./appoitmnets/index.php" class="card mb-3">Appointments</a>
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-12 ">
-                    <a href="./billing/index.php" class="card mb-3">Manage Patient Payments</a>
+                    <a href="./billing/index.php" class="card mb-3">Patient Payments</a>
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-12 flex-left">
-                    <a href="./patient medical history/index.php" class="card mb-3">Manage Medical History </a>
+                    <a href="./patient medical history/index.php" class="card mb-3">Medical History </a>
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-12">
-                    <a href="./patient test lab/index.php" class="card mb-3">Manage Test Labs</a>
+                    <a href="./patient test lab/index.php" class="card mb-3">Test Labs</a>
                 </div>
             </div>
         </div>
