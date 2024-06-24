@@ -198,27 +198,29 @@ th, td {
 
     <div class="body-container">
     <div class="table-container">
-            <table>
-              <thead>
-                <tr>
-                  <th>ID</th>
-                  <th>Medicine Type Name</th>
-                  <th>Dosage</th>
-                  <th>Prescription Date</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                <?php foreach ($medicalHistory as $row): ?>
-                <tr >
-                    <td><?php echo $row['MedicineHistoryID']; ?></td>
-                    <td><?php echo $row['MedicineTypeName'];?></td>
-                    <td><?php echo $row['Dosage']; ?></td>
-                    <td><?php echo $row['PrescriptionDate']; ?></td>
-                </tr>
-              <?php endforeach; ?>
-                </tr>
-              </tbody>
+          <table>
+                    <thead>
+                      <tr>
+                        <th>ID</th>
+                        <th>Doctor Name</th>
+                        <th>Medication Name</th>
+                        <th>Dosage</th>
+                        <th>Prescription Date</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                      <?php foreach ($medicalHistory as $row): ?>
+                      <tr >
+                          <td><?php echo $row['PrescriptionID']; ?></td>
+                          <td><?php echo $row['DoctorName'];?></td>
+                          <td><?php echo $row['Medication']; ?></td>
+                          <td><?php echo $row['Dosage']; ?></td>
+                          <td><?php echo $row['PrescriptionDate']; ?></td>
+                      </tr>
+                    <?php endforeach; ?>
+                      </tr>
+                    </tbody>
             </table>
         </div>
     </div>
