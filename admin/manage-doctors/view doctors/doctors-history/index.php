@@ -185,7 +185,7 @@ th, td {
               >
                 <ul class="navbar-nav">
                   <li class="nav-item">
-                    <a class="nav-link" href="../dashboard/index.html"> Back to Dashboard</a>
+                    <a class="nav-link" href="../../../dashboard/index.html"> Back to Dashboard</a>
                   </li>
                 </ul>
               </div>
