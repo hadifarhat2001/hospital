@@ -219,8 +219,8 @@ th, td {
               <thead>
                 <tr>
                   <th>ID</th>
-                  <th>roomNumber</th>
-                  <th>RoomType</th>
+                  <th>Room Number</th>
+                  <th>Room Type</th>
                   <th>Capacity</th>
                   <th>Availability</th>
                   <th>Actions</th>

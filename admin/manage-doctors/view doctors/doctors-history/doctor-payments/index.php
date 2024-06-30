@@ -214,6 +214,7 @@ th, td {
     </header>
 
     <div class="body-container">
+      <h1>Payments</h1>
     <div class="table-container"> 
     <div class="table-header">
               <button class="btn add-payment" onclick="openAddpaymentModal()">

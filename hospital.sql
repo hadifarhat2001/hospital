@@ -212,6 +212,7 @@ CREATE TABLE `medicinetypes` (
 CREATE TABLE `patienthistory` (
   `HistoryID` int(11) NOT NULL,
   `PatientID` int(11) DEFAULT NULL,
+  `DoctorId`  int(11) DEFAULT NULL,
   `HistoryDate` date DEFAULT NULL,
   `Diagnosis` text DEFAULT NULL,
   `Treatment` text DEFAULT NULL

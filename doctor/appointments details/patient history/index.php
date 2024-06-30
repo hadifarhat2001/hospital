@@ -155,6 +155,21 @@ th, td {
     padding-right: 5%;
  }
 
+ .table-header {
+    justify-content: flex-end;
+    display: flex;
+}
+
+ .add-history{
+    background-color: #04aa6d;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    /* width: 100%; */
+}
+
     </style>
   </head>
 
@@ -199,6 +214,11 @@ th, td {
 
     <div class="body-container">
     <div class="table-container">
+    <div class="table-header">
+              <button class="btn add-history" onclick="openAddHistoryModal()">
+                Add New Diagnose & Treatment
+              </button>
+            </div>
             <table>
               <thead>
                 <tr>
@@ -206,6 +226,7 @@ th, td {
                   <th>Date</th>
                   <th>Diagnosis</th>
                   <th>Treatment</th>
+                  <th>Action</th>
                 </tr>
               </thead>
               <tbody>
@@ -216,14 +237,92 @@ th, td {
                     <td><?php echo $row['HistoryDate'];?></td>
                     <td><?php echo $row['Diagnosis']; ?></td>
                     <td><?php echo $row['Treatment']; ?></td>
+                    <td>
+                      <button class="btn delete-btn" onclick="deleteHistory(<?php echo $row['HistoryID']; ?>)">
+                        Delete
+                      </button>
+                    </td>
                 </tr>
-              <?php endforeach; ?>
+              <?php endforeach; ?> 
                 </tr>
               </tbody>
             </table>
         </div>
     </div>
     </div>
+    <!-- Modal for adding history -->
+    <div id="addHistoryModal" class="modal">
+          <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>Add New Diagnose & Treatment</h2>
+            <form id="addHistoryForm">
+
+              <!-- Other form fields here -->
+              <label for="Diagnosis">Diagnose</label>
+              <input type="text" id="Diagnosis" name="Diagnosis" required>
+
+              <!-- Other form fields here -->
+              <label for="Treatment">Treatment</label>
+              <input type="text" id="Treatment" name="Treatment" required>
+
+              <button type="submit">Submit</button>
+            </form>
+          </div>
+        </div>
+    <script>
+
+          function deleteHistory(HistoryID) {
+
+        fetch("./delete_patient_history.php?HistoryID=" + HistoryID , {
+        method: "GET"
+        })
+        .then((response) => response.json())
+        .then((data) => {
+        if (data.error) {
+            alert(data.error);
+        } else if (data.success) {
+            alert(data.success);
+            location.reload();
+        }
+        })
+        .catch((error) => {
+        alert("Error: " + error.message);
+        });
+        }
+
+          function openAddHistoryModal() {
+            var modal = document.getElementById("addHistoryModal");
+            modal.style.display = "block";
+          }
+
+
+          function closeModal() {
+            var modal = document.getElementById("addHistoryModal");
+            modal.style.display = "none";
+          }
+
+          document.getElementById("addHistoryForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            var formData = new FormData(this); 
+            fetch("./add_patient_history.php", {
+              method: "POST",
+              body: formData
+            })
+            .then((response) => response.json())
+            .then((data) => {
+              if (data.error) {
+                alert(data.error);
+              } else if (data.success) {
+                alert(data.success);
+                closeModal(); 
+                location.reload();
+              }
+            })
+            .catch((error) => {
+              alert("Error: " + error.message);
+            });
+          });
+    </script>
   </body>
 
   <!-- jQery -->

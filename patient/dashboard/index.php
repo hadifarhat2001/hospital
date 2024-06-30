@@ -589,7 +589,7 @@ require_once "./appoitmnets/addApointment.php/view_schedule.php";
                 <tr>
                   <th>ID</th>
                   <th>Doctor Name</th>
-                  <th>Medication Name</th>
+                  <th>Medicine Name</th>
                   <th>Dosage</th>
                   <th>Prescription Date</th>
                 </tr>

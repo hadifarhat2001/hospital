@@ -1,10 +1,23 @@
 <?php
+  require_once '../../../connection/db_connection.php';
 
 session_start();
 if(!isset($_SESSION['PatientID']) ) {
     $_SESSION['PatientID'] = $_GET['PatientID'];
 
 }
+$PatientID = $_SESSION['PatientID'];
+
+$query = "SELECT CONCAT(FirstName, ' ', LastName) AS FullName FROM patients WHERE PatientID = ?";
+$stmt = $mysqli->prepare($query);
+$stmt->bind_param("i", $PatientID);
+$stmt->execute();
+$result = $stmt->get_result();
+$patientName = $result->fetch_all(MYSQLI_ASSOC);
+
+json_encode($patientName[0]);
+$_SESSION['patientName'] = $patientName[0]['FullName'];
+
 ?>
 <!DOCTYPE html>
 <html>

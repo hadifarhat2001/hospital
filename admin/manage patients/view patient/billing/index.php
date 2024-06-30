@@ -2,6 +2,10 @@
 
 require_once "./getPastPayments.php";
 require_once "./getUpcomingPayment.php";
+if(!isset($_SESSION['PatientID']) ) {
+  $_SESSION['PatientID'] = $_GET['PatientID'];
+
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -213,6 +217,8 @@ th, td {
     </header>
 
     <div class="body-container">
+    <h4>Payments for Patient</h4>
+    <h2> <?php echo strtoupper($_SESSION['patientName']); ?></h2>
     <div class="table-container"> 
     <div class="table-header">
               <button class="btn add-payment" onclick="openAddpaymentModal()">
@@ -245,7 +251,7 @@ th, td {
 
               <?php foreach ($pastPayments as $row): ?>
                 <tr style="background: #c0bfbf;">
-                    <td><?php echo $row['PaymentID']; ?></td>
+                    <td><?php echo $row['BillingID']; ?></td>
                     <td><?php echo $row['AmountPaid']; ?></td>
                     <td><?php echo $row['PaymentDate']; ?></td>
                     <td></td>
