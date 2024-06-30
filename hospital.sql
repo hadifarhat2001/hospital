@@ -292,7 +292,7 @@ CREATE TABLE `rooms` (
   `Availability` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-INSERT INTO `rooms` (`RoomID`, `RoomNumber`, `RoomType`, `Capacity`, `Availability`) VALUES (NULL, '1', 'EYES', '1', '1');
+INSERT INTO `rooms` (`RoomNumber`, `RoomType`, `Capacity`, `Availability`) VALUES ('1', 'EYES', '1', '1');
 --
 -- Indexes for dumped tables
 --
